@@ -67,11 +67,12 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             System.out.println("ROLE_USER + ROLE_ADMIN");
+            System.out.println("или USER + ADMIN");
             http
                     .authorizeRequests()
                     .antMatchers("/read").access("hasRole('USER') or hasRole('ADMIN')")
-                    .antMatchers("/user/**").access("hasRole('USER')")
-                    .antMatchers("/admin/**").access("hasRole('ADMIN')")
+                    .antMatchers("/user/**").access("hasRole('ROLE_USER')")
+                    .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 
                     .anyRequest().anonymous() //для того чтобы /login не был доступен для авторизованных пользователей
                     .and()
@@ -89,9 +90,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
                     .invalidateHttpSession(true)
                     .and()
 
-                    //перенаправляем не на /403 а на домашнюю
-                    //.exceptionHandling().accessDeniedPage("/home") //обработка ошибок (404)
-                   // .and()
+
 
                     .csrf()
                     .disable()
