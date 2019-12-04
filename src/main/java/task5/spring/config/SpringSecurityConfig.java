@@ -18,21 +18,22 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
     @EnableWebSecurity
     public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-        //@Autowired
+        @Autowired
         private UserDetailsService userDetailsService;
 
 
 
-        @Autowired
-        public void setUserDetailsService(UserDetailsService userDetailsService) {
-            this.userDetailsService = userDetailsService;
-        }
+ //       @Autowired
+ //       public void setUserDetailsService(UserDetailsService userDetailsService) {
+ //           this.userDetailsService = userDetailsService;
+ //       }
 
-        @Autowired
-        SpringSecurityConfig(UserDetailsService userDetailsService) {
-            this.userDetailsService = userDetailsService;
-        }
-//    @Bean
+ //       @Autowired
+//        SpringSecurityConfig(UserDetailsService userDetailsService) {
+ //           this.userDetailsService = userDetailsService;
+  //      }
+
+        //    @Bean
 //    public UserDetailsService getUserDetailsService(){
 //        return new UserDetailsServiceImpl();
 //    }
@@ -57,8 +58,9 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
         @Autowired
         public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+            System.out.println("SpringSecurityConfig --- userDetailsService ------ " + userDetailsService);
             auth.userDetailsService(userDetailsService);//.passwordEncoder(passwordEncoder());
-            //auth.userDetailsService()
+            //    auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 //        auth.inMemoryAuthentication().withUser("user").password("user").roles("ROLE_USER  ");
 //        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ROLE_ADMIN");
 //        auth.inMemoryAuthentication().withUser("superadmin").password("superadmin").roles("SUPERADMIN");
@@ -66,7 +68,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            System.out.println("ROLE_USER + ROLE_ADMIN");
+            System.out.println("SpringSecurityConfig - configure - ROLE_USER + ROLE_ADMIN");
             System.out.println("или USER + ADMIN");
             http
                     .authorizeRequests()

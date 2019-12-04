@@ -36,7 +36,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println(" User user = userDao.findByUsername(username);" );
+        System.out.println("UserDetailsServiceImpl implements UserDetailsService - v metode loadUserByUsername -  User user = userDao.findByUsername(username);" );
         User user = userDao.findByUsername(username);
         System.out.println("user ----- " + user);
 //создаю новый сет разрешений
@@ -50,6 +50,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         System.out.println("user.getPassword() ------ " + user.getPassword());
         System.out.println("grantedAuthorities ------ " + grantedAuthorities);
         //юзер: имя, пароль, РАЗРЕШЕНИЯ (из ролей)
+        System.out.println("new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities) ------ " + new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities));
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
     }
 }
